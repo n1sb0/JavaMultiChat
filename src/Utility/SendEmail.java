@@ -19,7 +19,7 @@ public class SendEmail {
 	public static int SendEmailTo(String EmailTo) {
 		//authentication info
 		final String username = "nsb.app0@gmail.com";
-		final String password = "Bogdan.naic123";
+		final String password = "Bogdan12313";
 		String toEmail = EmailTo;
 		
 		Properties properties = new Properties();
