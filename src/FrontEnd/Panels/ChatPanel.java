@@ -17,23 +17,30 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
 
+import org.jsoup.Jsoup;
+
 import javax.swing.JTextArea;
 
 public class ChatPanel extends JPanel {
 	public JTextField txtMessagge;
 	public JTextArea txtMessaggeArea;
+	public JLabel lblChatname;
+	public JLabel lblUsername;
 
 	private static Socket clientSocket;
 	private static int PORT = 4444;
 	private static PrintWriter out;
 	
-	public void start(String username, int myport) {
-		try {
+	public void start(String username, String chatname , int myport) {
+		lblChatname.setText("ChatName: " + chatname);
+		lblUsername.setText("UserName: " + username);
+		try {			
 			clientSocket = new Socket("localhost", myport);
 			out = new PrintWriter(clientSocket.getOutputStream(), true);
 			new Thread(new Listener()).start();
-			out.println(username);
+			out.println(username+";"+chatname);
 		} catch (Exception err) {
+			System.out.println(err);
 		}
 	}
 	
@@ -46,7 +53,7 @@ public class ChatPanel extends JPanel {
 				String read;
 				for(;;) {
 					read = in.readLine();
-					if (read != null && !(read.isEmpty())) txtMessaggeArea.append("\r\n"+read);
+					if (read != null && !(read.isEmpty())) txtMessaggeArea.append("\r\n" + read.replace("^", "\r\n"));
 				}
 			} catch (IOException e) {
 				return;
@@ -79,6 +86,14 @@ public class ChatPanel extends JPanel {
 		txtMessaggeArea = new JTextArea();
 		txtMessaggeArea.setBounds(25, 55, 700, 395);
 		add(txtMessaggeArea);
+		
+		lblChatname = new JLabel("ChatName: ");
+		lblChatname.setBounds(25, 11, 293, 14);
+		add(lblChatname);
+		
+		lblUsername = new JLabel("UserName: ");
+		lblUsername.setBounds(25, 36, 293, 14);
+		add(lblUsername);
 
 	}
 }

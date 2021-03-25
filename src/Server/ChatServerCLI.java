@@ -1,17 +1,24 @@
 package Server;
 
+import java.awt.Font;
 import java.io.*;
 import java.net.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import javax.swing.JEditorPane;
+
+import Utility.Utility;
 
 public class ChatServerCLI {
 	private static HashMap<String, PrintWriter> connectedClients = new HashMap<>();
 	private static final int MAX_CONNECTED = 50;
 	private static int PORT;
-	private static boolean verbose;
 	private static ServerSocket server;
 
-	// Start of Client Handler
 	private static class ClientHandler implements Runnable {
 		private Socket socket;
 		private PrintWriter out;
@@ -23,89 +30,70 @@ public class ChatServerCLI {
 		}
 
 		@Override
-		public void run(){
-			if (verbose)
-				System.out.println("Client connected: " + socket.getInetAddress());
+		public void run() {
 			try {
 				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				out = new PrintWriter(socket.getOutputStream(), true);
-				for(;;) {
-					out.println("Enter username:\t");
-					name = in.readLine();
-					if (name == null) {
-						return;
-					}
+				String[] s;
+				
+				for (;;) {
 					synchronized (connectedClients) {
-						if (!name.isEmpty() && !connectedClients.keySet().contains(name)) break;
-						else out.println("INVALIDNAME");
+						name = in.readLine();
+						s = name.split(";");
+						if (!name.isEmpty() && !connectedClients.keySet().contains(name)) {
+							break;
+						} else {
+							out.println("INVALIDNAME");
+						}
 					}
 				}
-				out.println("Welcome to the chat group, " + name.toUpperCase() + "!");
-				if (verbose) System.out.println(name.toUpperCase() + " has joined.");
-				broadcastMessage("[SYSTEM MESSAGE] " + name.toUpperCase() + " has joined.");
-				connectedClients.put(name, out);
+
 				String message;
-				out.println("You may join the chat now...");
+				
+				connectedClients.put(name, out);
 				while ((message = in.readLine()) != null) {
 					if (!message.isEmpty()) {
-						if (message.toLowerCase().equals("/quit")) break;
-						if (message.toLowerCase().equals("hamima")) {
-							broadcastMessage("palaigit si hamima");
-						}
-						broadcastMessage(name + ": " + message);
+						broadcastMessage("^ " + s[0] + " " + Utility.getCurrentTime() + " ^ " + message, s[1]);
 					}
 				}
+
 			} catch (Exception e) {
-				if (verbose) System.out.println(e);
-			} finally {
-				if (name != null) {
-					if (verbose) System.out.println(name + " is leaving");
-					connectedClients.remove(name);
-					broadcastMessage(name + " has left");
-				}
+				System.out.println(e);
 			}
 		}
-
 	}
 	// End of Client Handler
 
-	private static void broadcastMessage(String message) {
-		for (PrintWriter p: connectedClients.values()) {
-			p.println(message);
+	// trasmete il messaggio a tutti i Client connessi
+	private static void broadcastMessage(String message, String chatname) {
+		for (Entry<String, PrintWriter> p : connectedClients.entrySet()) {
+			if (p.getKey() != null && p.getKey().contains(chatname)) {
+				p.getValue().println(message);
+			}
 		}
 	}
 
-	public static void start(boolean isVerbose) {
-		verbose = isVerbose;
+	// apre connessione con Client
+	public static void start() {
 		try {
 			server = new ServerSocket(4444);
-			if (verbose) {
-				System.out.println("Server started on port: " + PORT);
-				System.out.println("Now listening for connections...");
-			}
-			for(;;) {
-				if (connectedClients.size() <= MAX_CONNECTED){
-					Thread newClient = new Thread(
-							new ClientHandler(server.accept()));
+			for (;;) {
+				if (connectedClients.size() <= MAX_CONNECTED) {
+					Thread newClient = new Thread(new ClientHandler(server.accept()));
 					newClient.start();
 				}
 			}
-		}
-		catch (Exception e) {
-			if (verbose) {
-				System.out.println("\nError occured: \n");
-				e.printStackTrace();
-				System.out.println("\nExiting...");
-			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
 	public static void stop() throws IOException {
-		if (!server.isClosed()) server.close();
+		if (!server.isClosed())
+			server.close();
 	}
-	
 
 	public static void main(String[] args) throws IOException {
-		start(false);
+		start();
 	}
 }

@@ -59,12 +59,12 @@ public class ChatForm {
 		
 		MainPanel.add(chatp2, "chatpanel2");
 		MainPanel.add(chatp, "chatpanel");
-		MainPanel.add(friendp, "friendspanel");
+		MainPanel.add(friendp, "friendspanel");	
 	}
 	
 	private void CallMyPanel() {
 		CardLayout cl = (CardLayout) MainPanel.getLayout();
-		cl.show(MainPanel, "chatpanel");
+		cl.show(MainPanel, "friendspanel");
 	}
 
 	public ChatForm() throws Exception {
@@ -99,7 +99,7 @@ public class ChatForm {
 			public void actionPerformed(ActionEvent arg0) {
 				CardLayout cl = (CardLayout) MainPanel.getLayout();
 				cl.show(MainPanel, "chatpanel");
-				chatp.start(_UserName,4444);
+				chatp.start(_UserName,"chat1",4444);
 			}
 		});
 		btnNewButton.setBounds(15, 20, 50, 50);
@@ -110,7 +110,7 @@ public class ChatForm {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout) MainPanel.getLayout();
 				cl.show(MainPanel, "chatpanel2");
-				chatp2.start(_UserName,4445);
+				chatp2.start(_UserName,"chat2",4444);
 			}
 		});
 		btnNewButton_1.setBounds(15, 90, 50, 50);
