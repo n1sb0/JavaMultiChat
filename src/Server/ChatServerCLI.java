@@ -31,34 +31,24 @@ public class ChatServerCLI {
 
 		@Override
 		public void run() {
+			String[] s;
+			String message;
+			
 			try {
 				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				out = new PrintWriter(socket.getOutputStream(), true);
-				String[] s;
-				
-				for (;;) {
-					synchronized (connectedClients) {
-						name = in.readLine();
-						s = name.split(";");
-						if (!name.isEmpty() && !connectedClients.keySet().contains(name)) {
-							break;
-						} else {
-							out.println("INVALIDNAME");
-						}
-					}
-				}
+			
+				name = in.readLine();
+				s = name.split(";");
 
-				String message;
-				
 				connectedClients.put(name, out);
 				while ((message = in.readLine()) != null) {
 					if (!message.isEmpty()) {
 						broadcastMessage("^ " + s[0] + " " + Utility.getCurrentTime() + " ^ " + message, s[1]);
 					}
 				}
-
 			} catch (Exception e) {
-				System.out.println(e);
+				System.out.println("Server conn err: "+ e);
 			}
 		}
 	}
