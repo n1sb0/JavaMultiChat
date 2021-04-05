@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -16,10 +17,11 @@ import java.awt.Cursor;
 
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.List;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
 
-import DBClasses.UserData;
+import DBClasses.*;
 import DBConnection.DBCalls;
 
 import javax.swing.JTextArea;
@@ -34,6 +36,8 @@ public class ChatPanel extends JPanel {
 	private static PrintWriter out;
 
 	public void start(UserData userdata, String chatname, int myport) {
+			
+		GetAllMessages();
 		
 		lblUsername.setText("UserName: " + userdata.username);
 		lblChatname.setText("ChatName: " + chatname);
@@ -67,6 +71,21 @@ public class ChatPanel extends JPanel {
 			}
 		}
 	}
+	
+	public void GetAllMessages() {		
+        ArrayList<Message> messages = new ArrayList<Message>();
+		messages = DBCalls.getAllMessages();
+		
+		System.out.println(messages);
+			
+		for (Message message : messages) {
+			 UserData userdata = DBCalls.Get_AllUserData("", message.userid);
+			 txtMessaggeArea.append("\r\n "+ userdata.username + " " + message.messagedate + " \r\n " + message.message + " \r\n" );
+			 
+			 userdata = new UserData();
+		}
+	}
+	
 
 	public ChatPanel() {
 		setBackground(SystemColor.controlHighlight);
@@ -98,11 +117,11 @@ public class ChatPanel extends JPanel {
 		txtMessaggeArea.setBounds(20, 55, 700, 370);
 		add(txtMessaggeArea);
 
-		lblChatname = new JLabel("ChatName: ");
+		lblChatname = new JLabel("Nome della Chat: ");
 		lblChatname.setBounds(20, 15, 293, 14);
 		add(lblChatname);
 
-		lblUsername = new JLabel("UserName: ");
+		lblUsername = new JLabel("Il tuo Nome: ");
 		lblUsername.setBounds(20, 35, 293, 15);
 		add(lblUsername);
 

@@ -82,7 +82,7 @@ public class SettingsPanel extends JPanel {
 		boolean res = DBCalls.ChangePassword(userdata.email, txtPassword.getText());
 		
 		if (res){
-			userdata = DBCalls.Get_AllUserData(userdata.email);
+			userdata = DBCalls.Get_AllUserData(userdata.email,0);
 			lblPasswordMSG.setText("La password \u00E8 stata cambiata corretamente.");
 			lblPasswordMSG.setForeground(Color.green);
 			lblPasswordMSG.setVisible(true);

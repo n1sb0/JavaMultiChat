@@ -42,9 +42,11 @@ public class ChatServerCLI {
 			
 				email = in.readLine();
 				
-				userdata = DBCalls.Get_AllUserData(email);
+				userdata = DBCalls.Get_AllUserData(email,0);
 				
 				broadcastMessage("^ Benvenuto nella chat, " + userdata.username.toUpperCase() + "! ^");
+				out.println(" Benvenuto, ti sei connesso nella chat...");
+				
 				connectedClients.put(userdata.username, out);
 				
 				while ((message = in.readLine()) != null) {
@@ -56,6 +58,14 @@ public class ChatServerCLI {
 					}
 				}
 			} catch (Exception e) {
+				
+				broadcastMessage("^ Utente: " + userdata.username.toUpperCase() + ", e' disconnesso. ^");
+				try {
+					stop();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				System.out.println("Server conn err: "+ e);
 			}
 		}

@@ -1,7 +1,9 @@
 package DBConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
 
+import DBClasses.Message;
 import DBClasses.UserData;
 import Encryption.Encryption;
 
@@ -83,13 +85,19 @@ public class DBCalls {
 		return Encryption.verifyUserPassword(password, userdata.password, userdata.salt);
 	}
 	
-	public static UserData Get_AllUserData(String email) {
+	public static UserData Get_AllUserData(String email, int id) {
 		UserData userdata = new UserData();
 
 		try {
 			getConnection();
-
-			String query = "SELECT * FROM users_data Where email = '" + email + "'";
+			String query = "";
+			
+			if(email.length() > 0) {
+				query = "SELECT * FROM users_data Where email = '" + email + "'";
+			}else if(id > 0){
+				query = "SELECT * FROM users_data Where id = '" + id + "'";
+			}
+			
 			Statement st = _conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 
@@ -201,6 +209,40 @@ public class DBCalls {
 			System.out.println("RegistreNewAcc: " + e);
 		}
 				
+	}
+
+	public static ArrayList<Message> getAllMessages() {
+		
+		ArrayList<Message> messages = new ArrayList<Message>();
+		Message message;
+		
+		try {
+			getConnection();
+
+			String query = "SELECT * FROM messaggi";
+			Statement st = _conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			while (rs.next()) {
+				message = new Message();
+				message.messageid = rs.getInt("messageid");
+				message.userid = rs.getInt("userid");
+				message.messagedate = rs.getString("messagedata");
+				message.message = rs.getString("message");
+				
+				messages.add(message);
+			}
+						
+			st.close();
+			_conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Get_LoginUser: " + e);
+		}
+		
+		
+		return messages;
 	}
 
 }

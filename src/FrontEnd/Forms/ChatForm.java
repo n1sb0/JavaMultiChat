@@ -55,8 +55,8 @@ public class ChatForm {
 	private static boolean chatstatus = false;
 	
 
-	public static void NewChatForm(String name) {
-	    userdata = DBCalls.Get_AllUserData(name);
+	public static void NewChatForm(String email) {
+	    userdata = DBCalls.Get_AllUserData(email,0);
 	    
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
