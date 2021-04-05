@@ -51,6 +51,7 @@ public class ChatServerCLI {
 				
 				while ((message = in.readLine()) != null) {
 					if (!message.isEmpty()) {
+						
 						String data = Utility.getCurrentTime();
 						broadcastMessage(" " + userdata.username + " " + data + " ^ " + message +" ^");
 						

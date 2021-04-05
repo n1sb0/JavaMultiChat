@@ -42,6 +42,7 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 
 import DBClasses.UserData;
+import javax.swing.JTextField;
 
 public class ChatForm {
 
@@ -72,6 +73,9 @@ public class ChatForm {
 	
 	private void MyCardsLayouts() {
 		chatp = new ChatPanel();
+		chatp.txtMessaggeArea.setBounds(20, 79, 700, 350);
+		chatp.lblChatname.setBounds(20, 23, 105, 14);
+		chatp.lblUsername.setBounds(20, 51, 93, 15);
 		settingsp = new SettingsPanel(userdata);
 		friendp = new FriendPanel(userdata.username);
 		
