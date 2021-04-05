@@ -19,6 +19,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
 
+import DBClasses.UserData;
 import DBConnection.DBCalls;
 
 import javax.swing.JTextArea;
@@ -36,12 +37,12 @@ public class ChatPanel extends JPanel {
 	private static String chatname;
 	private static boolean connected = false;
 
-	public void start(String username, String chatname, int myport) {
+	public void start(UserData userdata, String chatname, int myport) {
 
-		this.username = username;
+		this.username = userdata.username;
 		this.chatname = chatname;
 
-		lblUsername.setText("UserName: " + DBCalls.Get_UserName(username));
+		lblUsername.setText("UserName: " + userdata.username);
 		lblChatname.setText("ChatName: " + chatname);
 
 		try {

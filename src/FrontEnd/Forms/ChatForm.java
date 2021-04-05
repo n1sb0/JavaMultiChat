@@ -12,6 +12,7 @@ import DBConnection.DBCalls;
 import DBConnection.DBConnect;
 import FrontEnd.Panels.ChatPanel;
 import FrontEnd.Panels.FriendPanel;
+import FrontEnd.Panels.SettingsPanel;
 
 import java.awt.Font;
 import java.awt.Image;
@@ -40,19 +41,22 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 
+import DBClasses.UserData;
+
 public class ChatForm {
-	
-	private static String _UserName = "";
 
 	private JFrame frmChat;
 	public static JPanel MainPanel;
 	public static ChatPanel chatp;
-	public static ChatPanel chatp2;
+	public static SettingsPanel settingsp;
 	public static FriendPanel friendp;
+	private JButton btnSettings;
+	private static UserData userdata;
+	private static boolean chatstatus = false;
 	
 
 	public static void NewChatForm(String name) {
-	    _UserName = name;
+	    userdata = DBCalls.Get_AllUserData(name);
 	    
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -68,11 +72,11 @@ public class ChatForm {
 	
 	private void MyCardsLayouts() {
 		chatp = new ChatPanel();
-		chatp2 = new ChatPanel();
-		friendp = new FriendPanel();
+		settingsp = new SettingsPanel(userdata);
+		friendp = new FriendPanel(userdata.username);
 		
-		MainPanel.add(chatp2, "chatpanel2");
 		MainPanel.add(chatp, "chatpanel");
+		MainPanel.add(settingsp, "settingspanel");
 		MainPanel.add(friendp, "friendspanel");	
 	}
 	
@@ -89,6 +93,11 @@ public class ChatForm {
 		LoginForm.NewLoginForm();
 		frmChat.setVisible(false);	
 	} 
+	
+	private void Open_FormSettings() {
+		CardLayout cl = (CardLayout) MainPanel.getLayout();
+		cl.show(MainPanel, "settingspanel");
+	}
 
 	private void initialize() {
 		frmChat = new JFrame();
@@ -109,7 +118,7 @@ public class ChatForm {
 		
 		JPanel Leftpanel = new JPanel();
 		Leftpanel.setBackground(SystemColor.control);
-		Leftpanel.setBounds(0, 0, 80, 511);
+		Leftpanel.setBounds(0, 0, 80, 498);
 		frmChat.getContentPane().add(Leftpanel);
 		Leftpanel.setLayout(null);
 			
@@ -122,9 +131,12 @@ public class ChatForm {
 		btnChat.setIcon(new ImageIcon(iconChat));
 		btnChat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+							
 				CardLayout cl = (CardLayout) MainPanel.getLayout();
 				cl.show(MainPanel, "chatpanel");
-				chatp.start(_UserName,"chat1",4444);
+				
+				if (!chatstatus)
+				chatp.start(userdata,"chat1",4444);
 			}
 		});
 		btnChat.setBounds(15, 20, 50, 50);
@@ -133,8 +145,8 @@ public class ChatForm {
 		
 		JLabel lblUserName = new JLabel("User Name");
 		lblUserName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUserName.setText(DBCalls.Get_UserName(_UserName));
-		lblUserName.setBounds(10, 435, 60, 15);
+		lblUserName.setText(userdata.username);
+		lblUserName.setBounds(10, 415, 60, 15);
 		Leftpanel.add(lblUserName);
 		
 		JButton btnExit = new JButton();
@@ -149,8 +161,23 @@ public class ChatForm {
 		Image iconExit = new ImageIcon(this.getClass().getResource("/exit.png")).getImage();
 		btnExit.setIcon(new ImageIcon(iconExit));
 		btnExit.setBackground(SystemColor.menu);
-		btnExit.setBounds(25, 455, 30, 30);
+		btnExit.setBounds(30, 465, 20, 20);
 		Leftpanel.add(btnExit);
+		
+		btnSettings = new JButton();
+		btnSettings.setBorder(emptyBorder);
+		btnSettings.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSettings.setBackground(SystemColor.control);
+		Image iconSettings = new ImageIcon(this.getClass().getResource("/settings.png")).getImage();
+		btnSettings.setIcon(new ImageIcon(iconSettings));
+		btnSettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Open_FormSettings();
+			}
+		});
+		btnSettings.setBackground(SystemColor.menu);
+		btnSettings.setBounds(28, 435, 25, 25);
+		Leftpanel.add(btnSettings);
 		
 	}
 }
