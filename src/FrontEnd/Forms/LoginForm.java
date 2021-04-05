@@ -82,7 +82,6 @@ public class LoginForm {
 	private void initialize() {
 		frmLogin = new JFrame();
 		frmLogin.getContentPane().setBackground(Color.WHITE);
-		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/javax/swing/plaf/metal/icons/ocean/warning.png")));
 		frmLogin.setTitle("Login");
 		frmLogin.setBounds(100, 100, 350, 319);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -144,6 +143,7 @@ public class LoginForm {
 			}
 		});
 		btnLogin.setForeground(SystemColor.inactiveCaptionBorder);
+		btnLogin.setFocusPainted(false);
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnLogin.setBackground(Color.DARK_GRAY);
 		btnLogin.setBounds(75, 175, 200, 30);

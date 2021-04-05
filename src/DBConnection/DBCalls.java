@@ -81,5 +81,29 @@ public class DBCalls {
 
 		return Encryption.verifyUserPassword(password, userdata.password, userdata.salt);
 	}
+	
+	public static String Get_UserName(String email) {
+		String username = "";
+
+		try {
+			getConnection();
+
+			String query = "SELECT username FROM users_data Where email = '" + email + "'";
+			Statement st = _conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			while (rs.next()) {
+				username = rs.getString("username");
+			}
+						
+			st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Get_LoginUser: " + e);
+		}
+		
+		return username;
+	}
 
 }

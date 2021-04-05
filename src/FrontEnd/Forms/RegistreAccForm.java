@@ -74,7 +74,6 @@ public class RegistreAccForm {
 	private void initialize() {
 		frmRegistraAccount = new JFrame();
 		frmRegistraAccount.getContentPane().setBackground(Color.WHITE);
-		frmRegistraAccount.setIconImage(Toolkit.getDefaultToolkit().getImage(RegistreAccForm.class.getResource("/com/sun/javafx/scene/control/skin/caspian/menu-shadow.png")));
 		frmRegistraAccount.setTitle("Registra Account");
 		frmRegistraAccount.setBounds(100, 100, 400, 550);
 		frmRegistraAccount.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -118,6 +117,7 @@ public class RegistreAccForm {
 		btnInvia.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnInvia.setBackground(Color.DARK_GRAY);
 		btnInvia.setBounds(100, 442, 200, 30);
+		btnInvia.setFocusPainted(false);
 		frmRegistraAccount.getContentPane().add(btnInvia);
 		
 		txtUserName = new JTextField();

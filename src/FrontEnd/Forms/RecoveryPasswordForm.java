@@ -117,6 +117,7 @@ public class RecoveryPasswordForm {
 		});
 		btnInvia.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnInvia.setBounds(75, 165, 200, 30);
+		btnInvia.setFocusPainted(false);
 		frmRecuperapassword.getContentPane().add(btnInvia);
 
 		JLabel btnGoBack = new JLabel("<");

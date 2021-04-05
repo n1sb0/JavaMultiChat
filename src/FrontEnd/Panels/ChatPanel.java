@@ -12,10 +12,14 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Cursor;
+
 import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
+
+import DBConnection.DBCalls;
 
 import javax.swing.JTextArea;
 
@@ -37,7 +41,7 @@ public class ChatPanel extends JPanel {
 		this.username = username;
 		this.chatname = chatname;
 
-		lblUsername.setText("UserName: " + username);
+		lblUsername.setText("UserName: " + DBCalls.Get_UserName(username));
 		lblChatname.setText("ChatName: " + chatname);
 
 		try {
@@ -76,16 +80,18 @@ public class ChatPanel extends JPanel {
 	}
 
 	public ChatPanel() {
-		setBackground(Color.LIGHT_GRAY);
+		setBackground(SystemColor.controlHighlight);
 		setLayout(null);
 
 		txtMessagge = new JTextField();
-		txtMessagge.setBounds(25, 460, 590, 30);
+		txtMessagge.setBounds(20, 440, 590, 30);
 		add(txtMessagge);
 		txtMessagge.setColumns(10);
 
 		JButton btnSendMessagge = new JButton("INVIA");
+		btnSendMessagge.setFocusPainted(false);
 		btnSendMessagge.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		btnSendMessagge.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSendMessagge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				out.println(txtMessagge.getText());
@@ -94,19 +100,20 @@ public class ChatPanel extends JPanel {
 		btnSendMessagge.setForeground(SystemColor.inactiveCaptionBorder);
 		btnSendMessagge.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSendMessagge.setBackground(new Color(0, 0, 51));
-		btnSendMessagge.setBounds(625, 458, 100, 30);
+		btnSendMessagge.setBounds(620, 438, 100, 30);
 		add(btnSendMessagge);
 
 		txtMessaggeArea = new JTextArea();
-		txtMessaggeArea.setBounds(25, 55, 700, 395);
+		txtMessaggeArea.setEditable(false);
+		txtMessaggeArea.setBounds(20, 55, 700, 370);
 		add(txtMessaggeArea);
 
 		lblChatname = new JLabel("ChatName: ");
-		lblChatname.setBounds(25, 11, 293, 14);
+		lblChatname.setBounds(20, 15, 293, 14);
 		add(lblChatname);
 
 		lblUsername = new JLabel("UserName: ");
-		lblUsername.setBounds(25, 36, 293, 14);
+		lblUsername.setBounds(20, 35, 293, 15);
 		add(lblUsername);
 
 	}
