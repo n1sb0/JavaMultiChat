@@ -5,11 +5,14 @@ import java.awt.Cursor;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
 
 import DBConnection.DBCalls;
@@ -34,6 +37,7 @@ public class LoginForm {
 	private JButton btnLogin;
 	private JPasswordField txtPassword;
 	private JTextField txtEmail;
+	private JLabel Logopanel;
 
 	public static void main(String[] args) {
 		NewLoginForm();
@@ -83,22 +87,22 @@ public class LoginForm {
 		frmLogin = new JFrame();
 		frmLogin.getContentPane().setBackground(Color.WHITE);
 		frmLogin.setTitle("Login");
-		frmLogin.setBounds(100, 100, 350, 319);
+		frmLogin.setBounds(100, 100, 350, 385);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.getContentPane().setLayout(null);
 		frmLogin.setLocationRelativeTo(null);
 		frmLogin.setResizable(false);
 		
 		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setBounds(75, 70, 180, 14);
+		lblEmail.setBounds(70, 140, 200, 14);
 		frmLogin.getContentPane().add(lblEmail);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(75, 125, 180, 14);
+		lblPassword.setBounds(70, 195, 200, 14);
 		frmLogin.getContentPane().add(lblPassword);
 		
 		lblCreateNewAcc = new JLabel("- Registra nuovo account");
-		lblCreateNewAcc.setBounds(75, 218, 180, 14);	
+		lblCreateNewAcc.setBounds(70, 288, 200, 14);	
 		lblCreateNewAcc.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblCreateNewAcc.addMouseListener(new MouseAdapter()  
 		{  
@@ -111,7 +115,7 @@ public class LoginForm {
 		
 		lblForgetPass = new JLabel("- Hai dimenticato la password?");
 		lblForgetPass.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblForgetPass.setBounds(75, 243, 180, 14);
+		lblForgetPass.setBounds(70, 313, 200, 14);
 		lblForgetPass.addMouseListener(new MouseAdapter()  
 		{  
 		    public void mouseClicked(MouseEvent e)  
@@ -123,13 +127,14 @@ public class LoginForm {
 		
 		lblPlaymechat = new JLabel("PlayMeChat");
 		lblPlaymechat.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPlaymechat.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblPlaymechat.setBounds(125, 10, 100, 35);
+		lblPlaymechat.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblPlaymechat.setBounds(100, 10, 150, 35);
 		frmLogin.getContentPane().add(lblPlaymechat);
 		
 		lblWrongCredentials = new JLabel("Login o password sono sbagliate!");
+		lblWrongCredentials.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWrongCredentials.setFont(lblWrongCredentials.getFont().deriveFont(lblWrongCredentials.getFont().getStyle() | Font.BOLD));
-		lblWrongCredentials.setBounds(80, 47, 191, 14);
+		lblWrongCredentials.setBounds(70, 115, 200, 14);
 		frmLogin.getContentPane().add(lblWrongCredentials);
 		lblWrongCredentials.setVisible(false);
 		lblWrongCredentials.setForeground(Color.RED);
@@ -146,19 +151,19 @@ public class LoginForm {
 		btnLogin.setFocusPainted(false);
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnLogin.setBackground(Color.DARK_GRAY);
-		btnLogin.setBounds(75, 175, 200, 30);
+		btnLogin.setBounds(70, 245, 200, 30);
 		frmLogin.getContentPane().add(btnLogin);
 		
 		txtPassword = new JPasswordField();
 		txtPassword.setColumns(10);
 		txtPassword.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(64, 64, 64)));
-		txtPassword.setBounds(75, 145, 200, 20);
+		txtPassword.setBounds(70, 215, 200, 20);
 		frmLogin.getContentPane().add(txtPassword);
 		
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
 		txtEmail.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(64, 64, 64)));
-		txtEmail.setBounds(75, 90, 200, 20);
+		txtEmail.setBounds(70, 160, 200, 20);
 		frmLogin.getContentPane().add(txtEmail);
 		
 		JButton button = new JButton("2");
@@ -190,5 +195,11 @@ public class LoginForm {
 		});
 		button_2.setBounds(285, 181, 39, 23);
 		frmLogin.getContentPane().add(button_2);
+		
+		Logopanel = new JLabel("");
+		Logopanel.setBounds(140, 40, 70, 70);
+		Image iconChat = new ImageIcon(this.getClass().getResource("/minilogo.png")).getImage();
+		Logopanel.setIcon(new ImageIcon(iconChat));
+		frmLogin.getContentPane().add(Logopanel);
 	}
 }

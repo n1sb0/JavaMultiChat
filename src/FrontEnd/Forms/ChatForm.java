@@ -136,7 +136,7 @@ public class ChatForm {
 				cl.show(MainPanel, "chatpanel");
 				
 				if (!chatstatus) {
-					chatp.start(userdata,"chat1",4444);
+					chatp.start(userdata,"chat comune",4444);
 					chatstatus = true;
 				}			
 			}

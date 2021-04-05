@@ -45,7 +45,7 @@ public class ChatServerCLI {
 				userdata = DBCalls.Get_AllUserData(email,0);
 				
 				broadcastMessage("^ Benvenuto nella chat, " + userdata.username.toUpperCase() + "! ^");
-				out.println(" Benvenuto, ti sei connesso nella chat...");
+				out.println(" Benvenuto, ti sei connesso nella chat... ^");
 				
 				connectedClients.put(userdata.username, out);
 				

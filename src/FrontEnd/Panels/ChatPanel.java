@@ -39,8 +39,8 @@ public class ChatPanel extends JPanel {
 			
 		GetAllMessages();
 		
-		lblUsername.setText("UserName: " + userdata.username);
-		lblChatname.setText("ChatName: " + chatname);
+		lblUsername.setText("Il tuo Nome: " + userdata.username);
+		lblChatname.setText("Nome della Chat: " + chatname);
 
 		try {
 			clientSocket = new Socket("localhost", myport);

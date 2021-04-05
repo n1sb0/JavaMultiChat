@@ -199,7 +199,7 @@ public class DBCalls {
 	public static void Insert_Message(int id, String data, String message) {
 
 		String query = "INSERT INTO messaggi (userid, messagedata, message) values " + "('"
-				+ id + "','" + data + "','" + message + "')";
+				+ id + "','" + data + "', aes_encrypt('" + message + "','chiave123'))";
 		try {
 			getConnection();
 			PreparedStatement insert = _conn.prepareStatement(query);
@@ -219,7 +219,7 @@ public class DBCalls {
 		try {
 			getConnection();
 
-			String query = "SELECT * FROM messaggi";
+			String query = "SELECT messageid, userid, messagedata, cast(aes_decrypt(message,'chiave123') as char(10000)) as decmessage FROM messaggi";
 			Statement st = _conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 
@@ -228,7 +228,7 @@ public class DBCalls {
 				message.messageid = rs.getInt("messageid");
 				message.userid = rs.getInt("userid");
 				message.messagedate = rs.getString("messagedata");
-				message.message = rs.getString("message");
+				message.message = rs.getString("decmessage");
 				
 				messages.add(message);
 			}
