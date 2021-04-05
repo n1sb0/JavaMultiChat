@@ -135,8 +135,10 @@ public class ChatForm {
 				CardLayout cl = (CardLayout) MainPanel.getLayout();
 				cl.show(MainPanel, "chatpanel");
 				
-				if (!chatstatus)
-				chatp.start(userdata,"chat1",4444);
+				if (!chatstatus) {
+					chatp.start(userdata,"chat1",4444);
+					chatstatus = true;
+				}			
 			}
 		});
 		btnChat.setBounds(15, 20, 50, 50);

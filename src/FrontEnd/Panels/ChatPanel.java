@@ -31,30 +31,18 @@ public class ChatPanel extends JPanel {
 	public JLabel lblUsername;
 
 	private Socket clientSocket;
-	private static int PORT = 4444;
 	private static PrintWriter out;
-	private static String username;
-	private static String chatname;
-	private static boolean connected = false;
 
 	public void start(UserData userdata, String chatname, int myport) {
-
-		this.username = userdata.username;
-		this.chatname = chatname;
-
+		
 		lblUsername.setText("UserName: " + userdata.username);
 		lblChatname.setText("ChatName: " + chatname);
 
 		try {
-			if (!clientSocket.isClosed()) {
-				clientSocket.close();
-			}
-
 			clientSocket = new Socket("localhost", myport);
 			out = new PrintWriter(clientSocket.getOutputStream(), true);
 			new Thread(new Listener()).start();
-			out.println(username + ";" + chatname);
-			connected = true;
+			out.println(userdata.email);
 		} catch (Exception err) {
 			System.out.println("Client conn err: "+err);
 		}
@@ -96,6 +84,7 @@ public class ChatPanel extends JPanel {
 		btnSendMessagge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				out.println(txtMessagge.getText());
+				txtMessagge.setText("");
 			}
 		});
 		btnSendMessagge.setForeground(SystemColor.inactiveCaptionBorder);

@@ -11,6 +11,8 @@ import java.util.Set;
 
 import javax.swing.JEditorPane;
 
+import DBClasses.UserData;
+import DBConnection.DBCalls;
 import Utility.Utility;
 
 public class ChatServerCLI {
@@ -23,7 +25,8 @@ public class ChatServerCLI {
 		private Socket socket;
 		private PrintWriter out;
 		private BufferedReader in;
-		private String name;
+		private String email;
+		private UserData userdata;
 
 		public ClientHandler(Socket socket) {
 			this.socket = socket;
@@ -31,20 +34,25 @@ public class ChatServerCLI {
 
 		@Override
 		public void run() {
-			String[] s;
 			String message;
 			
 			try {
 				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				out = new PrintWriter(socket.getOutputStream(), true);
 			
-				name = in.readLine();
-				s = name.split(";");
-
-				connectedClients.put(name, out);
+				email = in.readLine();
+				
+				userdata = DBCalls.Get_AllUserData(email);
+				
+				broadcastMessage("^ Benvenuto nella chat, " + userdata.username.toUpperCase() + "! ^");
+				connectedClients.put(userdata.username, out);
+				
 				while ((message = in.readLine()) != null) {
 					if (!message.isEmpty()) {
-						broadcastMessage("^ " + s[0] + " " + Utility.getCurrentTime() + " ^ " + message, s[1]);
+						String data = Utility.getCurrentTime();
+						broadcastMessage(" " + userdata.username + " " + data + " ^ " + message +" ^");
+						
+						DBCalls.Insert_Message(userdata.id, data, message);
 					}
 				}
 			} catch (Exception e) {
@@ -55,11 +63,9 @@ public class ChatServerCLI {
 	// End of Client Handler
 
 	// trasmete il messaggio a tutti i Client connessi
-	private static void broadcastMessage(String message, String chatname) {
+	private static void broadcastMessage(String message) {
 		for (Entry<String, PrintWriter> p : connectedClients.entrySet()) {
-			if (p.getKey() != null && p.getKey().contains(chatname)) {
 				p.getValue().println(message);
-			}
 		}
 	}
 

@@ -188,4 +188,19 @@ public class DBCalls {
 		return false;
 	}
 
+	public static void Insert_Message(int id, String data, String message) {
+
+		String query = "INSERT INTO messaggi (userid, messagedata, message) values " + "('"
+				+ id + "','" + data + "','" + message + "')";
+		try {
+			getConnection();
+			PreparedStatement insert = _conn.prepareStatement(query);
+			insert.executeUpdate();
+			_conn.close();
+		} catch (Exception e) {
+			System.out.println("RegistreNewAcc: " + e);
+		}
+				
+	}
+
 }

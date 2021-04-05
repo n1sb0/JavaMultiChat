@@ -7,7 +7,7 @@ public class Utility {
 	
 	public static String getCurrentTime() {
 		LocalDateTime myDateObj = LocalDateTime.now();
-	    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+	    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-dd-MM HH:mm:ss");
 
 	    return myDateObj.format(myFormatObj);
 	}
