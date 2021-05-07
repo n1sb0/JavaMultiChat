@@ -10,9 +10,9 @@ public class DBConnect {
 
 		try {
 			String driver = "com.mysql.cj.jdbc.Driver";
-			String url = "jdbc:mysql://localhost:3305/chatdb";
+			String url = "jdbc:mysql://localhost:3306/chatdb";
 			String username = "root";
-			String password = "qwerty123";
+			String password = "";
 			Class.forName(driver);
 
 			Connection conn = DriverManager.getConnection(url, username, password);

@@ -2,6 +2,8 @@ package FrontEnd.Panels;
 
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Cursor;
+
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 
@@ -211,6 +213,7 @@ public class SettingsPanel extends JPanel {
 		panel.add(txtCurrentPassword);
 		
 		btnComfermaPassword = new JButton("CONFERMA");
+		btnComfermaPassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnComfermaPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Show_ChangePasswordPanel();
@@ -224,6 +227,7 @@ public class SettingsPanel extends JPanel {
 		panel.add(btnComfermaPassword);
 		
 		JButton btnCambiaDati = new JButton("CAMBIA");
+		btnCambiaDati.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCambiaDati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Change_UserData();
@@ -277,6 +281,7 @@ public class SettingsPanel extends JPanel {
 		txtConfirmPassword.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(64, 64, 64)));
 		
 		btnCambiaPassword = new JButton("CAMBIA");
+		btnCambiaPassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCambiaPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				OnChangePassword();

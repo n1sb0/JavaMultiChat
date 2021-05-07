@@ -166,35 +166,35 @@ public class LoginForm {
 		txtEmail.setBounds(70, 160, 200, 20);
 		frmLogin.getContentPane().add(txtEmail);
 		
-		JButton button = new JButton("2");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtEmail.setText("pippo@gmail.com");
-				txtPassword.setText("pippo123");
-			}
-		});
-		button.setBounds(284, 218, 39, 23);
-		frmLogin.getContentPane().add(button);
-		
-		JButton button_1 = new JButton("3");
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtEmail.setText("mario.rossi@gmail.com");
-				txtPassword.setText("mario123");
-			}
-		});
-		button_1.setBounds(284, 256, 39, 23);
-		frmLogin.getContentPane().add(button_1);
-		
-		JButton button_2 = new JButton("1");
-		button_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				txtEmail.setText("bohdan.sivak@gmail.com");
-				txtPassword.setText("bogdan123");
-			}
-		});
-		button_2.setBounds(285, 181, 39, 23);
-		frmLogin.getContentPane().add(button_2);
+//		JButton button = new JButton("2");
+//		button.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				txtEmail.setText("pippo@gmail.com");
+//				txtPassword.setText("pippo123");
+//			}
+//		});
+//		button.setBounds(284, 218, 39, 23);
+//		frmLogin.getContentPane().add(button);
+//		
+//		JButton button_1 = new JButton("3");
+//		button_1.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				txtEmail.setText("mario.rossi@gmail.com");
+//				txtPassword.setText("mario123");
+//			}
+//		});
+//		button_1.setBounds(284, 256, 39, 23);
+//		frmLogin.getContentPane().add(button_1);
+//		
+//		JButton button_2 = new JButton("1");
+//		button_2.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				txtEmail.setText("bohdan.sivak@gmail.com");
+//				txtPassword.setText("bogdan123");
+//			}
+//		});
+//		button_2.setBounds(285, 181, 39, 23);
+//		frmLogin.getContentPane().add(button_2);
 		
 		Logopanel = new JLabel("");
 		Logopanel.setBounds(140, 40, 70, 70);

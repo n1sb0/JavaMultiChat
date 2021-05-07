@@ -50,7 +50,7 @@ public class DBCalls {
 			insert.executeUpdate();
 			_conn.close();
 		} catch (Exception e) {
-			System.out.println("RegistreNewAcc: " + e);
+			System.out.println("Insert_RegistreNewAcc: " + e);
 		}
 	}
 
@@ -122,7 +122,7 @@ public class DBCalls {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
-			System.out.println("Get_LoginUser: " + e);
+			System.out.println("Get_AllUserData: " + e);
 		}
 
 		return userdata;
@@ -147,7 +147,7 @@ public class DBCalls {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
-			System.out.println("Get_LoginUser: " + e);
+			System.out.println("Get_UserName: " + e);
 		}
 		
 		return username;
@@ -170,7 +170,7 @@ public class DBCalls {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
-			System.out.println("Get_LoginUser: " + e);
+			System.out.println("ChangePassword: " + e);
 		}	
 		
 		return false;
@@ -206,7 +206,7 @@ public class DBCalls {
 			insert.executeUpdate();
 			_conn.close();
 		} catch (Exception e) {
-			System.out.println("RegistreNewAcc: " + e);
+			System.out.println("Update_UserData: " + e);
 		}
 				
 	}
@@ -219,13 +219,13 @@ public class DBCalls {
 		try {
 			getConnection();
 
-			String query = "SELECT messageid, userid, messagedata, cast(aes_decrypt(message,'chiave123') as char(10000)) as decmessage FROM messaggi";
+			String query = "SELECT id, userid, messagedata, cast(aes_decrypt(message,'chiave123') as char(10000)) as decmessage FROM messaggi";
 			Statement st = _conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 
 			while (rs.next()) {
 				message = new Message();
-				message.messageid = rs.getInt("messageid");
+				message.messageid = rs.getInt("id");
 				message.userid = rs.getInt("userid");
 				message.messagedate = rs.getString("messagedata");
 				message.message = rs.getString("decmessage");
@@ -238,7 +238,7 @@ public class DBCalls {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
-			System.out.println("Get_LoginUser: " + e);
+			System.out.println("getAllMessages: " + e);
 		}
 		
 		
