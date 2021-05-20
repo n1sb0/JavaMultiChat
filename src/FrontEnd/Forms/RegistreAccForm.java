@@ -4,8 +4,11 @@ import java.awt.Cursor;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextField;
 
 import DBConnection.DBCalls;
@@ -74,17 +77,19 @@ public class RegistreAccForm {
 	private void initialize() {
 		frmRegistraAccount = new JFrame();
 		frmRegistraAccount.getContentPane().setBackground(Color.WHITE);
-		frmRegistraAccount.setTitle("Registra Account");
+		frmRegistraAccount.setTitle("PlayMe");
+		Image icon = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();  
+		frmRegistraAccount.setIconImage(icon); 
 		frmRegistraAccount.setBounds(100, 100, 400, 550);
 		frmRegistraAccount.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmRegistraAccount.getContentPane().setLayout(null);
 		frmRegistraAccount.setLocationRelativeTo(null);
 		frmRegistraAccount.setResizable(false);
 		
-		chkAuth = new JCheckBox("Autorizzo tutti i miei dati ");
+		chkAuth = new JCheckBox("Autorizzo il trattamento dei miei dati ");
 		chkAuth.setBackground(Color.WHITE);
 		chkAuth.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		chkAuth.setBounds(100, 402, 200, 23);
+		chkAuth.setBounds(85, 402, 250, 23);
 		frmRegistraAccount.getContentPane().add(chkAuth);
 		
 		btnGoBack = new JLabel("<");
@@ -139,7 +144,7 @@ public class RegistreAccForm {
 		txtEmail.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(64, 64, 64)));
 		txtEmail.setBounds(100, 161, 200, 20);
 		frmRegistraAccount.getContentPane().add(txtEmail);
-		
+		    
 		lblEmail_2 = new JLabel("Nome");
 		lblEmail_2.setBounds(100, 192, 200, 14);
 		frmRegistraAccount.getContentPane().add(lblEmail_2);
@@ -180,7 +185,7 @@ public class RegistreAccForm {
 		lblEmail_1.setBounds(100, 345, 200, 14);
 		frmRegistraAccount.getContentPane().add(lblEmail_1);
 		
-		lblCreaNuovoAccount = new JLabel("Crea nuovo account");
+		lblCreaNuovoAccount = new JLabel("Crea un nuovo account");
 		lblCreaNuovoAccount.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCreaNuovoAccount.setForeground(Color.DARK_GRAY);
 		lblCreaNuovoAccount.setFont(new Font("Tahoma", Font.BOLD, 17));

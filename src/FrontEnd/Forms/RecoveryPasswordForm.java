@@ -4,9 +4,12 @@ import java.awt.Cursor;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextField;
 
 import Utility.SendEmail;
@@ -97,7 +100,9 @@ public class RecoveryPasswordForm {
 	private void initialize() {
 		frmRecuperapassword = new JFrame();
 		frmRecuperapassword.getContentPane().setBackground(Color.WHITE);
-		frmRecuperapassword.setTitle("Recupera Password");
+		frmRecuperapassword.setTitle("PlayMe");
+		Image icon = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();  
+		frmRecuperapassword.setIconImage(icon); 
 		frmRecuperapassword.setBounds(100, 100, 340, 250);
 		frmRecuperapassword.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmRecuperapassword.setLocationRelativeTo(null);

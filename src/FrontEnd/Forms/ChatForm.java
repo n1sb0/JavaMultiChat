@@ -108,7 +108,9 @@ public class ChatForm {
 
 	private void initialize() {
 		frmChat = new JFrame();
-		frmChat.setTitle("Chat");
+		frmChat.setTitle("PlayMe");
+		Image icon = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();  
+		frmChat.setIconImage(icon); 
 		frmChat.setBounds(100, 100, 834, 527);
 		frmChat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmChat.setLocationRelativeTo(null);

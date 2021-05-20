@@ -86,7 +86,9 @@ public class LoginForm {
 	private void initialize() {
 		frmLogin = new JFrame();
 		frmLogin.getContentPane().setBackground(Color.WHITE);
-		frmLogin.setTitle("Login");
+		frmLogin.setTitle("PlayMe");
+		Image icon = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();  
+		frmLogin.setIconImage(icon);  
 		frmLogin.setBounds(100, 100, 350, 385);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.getContentPane().setLayout(null);
@@ -125,10 +127,10 @@ public class LoginForm {
 		}); 
 		frmLogin.getContentPane().add(lblForgetPass);
 		
-		lblPlaymechat = new JLabel("PlayMeChat");
+		lblPlaymechat = new JLabel("PlayMe");
 		lblPlaymechat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPlaymechat.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblPlaymechat.setBounds(100, 10, 150, 35);
+		lblPlaymechat.setBounds(90, 10, 150, 35);
 		frmLogin.getContentPane().add(lblPlaymechat);
 		
 		lblWrongCredentials = new JLabel("Login o password sono sbagliate!");
@@ -197,7 +199,7 @@ public class LoginForm {
 //		frmLogin.getContentPane().add(button_2);
 		
 		Logopanel = new JLabel("");
-		Logopanel.setBounds(140, 40, 70, 70);
+		Logopanel.setBounds(125, 40, 70, 70);
 		Image iconChat = new ImageIcon(this.getClass().getResource("/minilogo.png")).getImage();
 		Logopanel.setIcon(new ImageIcon(iconChat));
 		frmLogin.getContentPane().add(Logopanel);
